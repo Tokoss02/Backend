@@ -38,6 +38,6 @@ async function bootstrap() {
   );
  const PORT = process.env.PORT || 5000;
   await app.listen(PORT);
- console.log(`🚀 Backend running on ${process.env.NEXT_PUBLIC_API_BASE_URL}`)
+ console.log(`🚀 Backend running on NEXT_PUBLIC_API_BASE_URL`)
 }
 bootstrap();
