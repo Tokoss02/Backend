@@ -16,7 +16,10 @@ async function bootstrap() {
 
   // Enable CORS if you're running frontend and backend on different ports
   app.enableCors({
-    origin: 'http://localhost:3000', // Frontend URL
+    origin: [
+      'http://localhost:3000',
+      'https://frontendtokossmotors.vercel.app', 
+    ],
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     credentials: true,
   });
@@ -33,8 +36,8 @@ async function bootstrap() {
       stopAtFirstError: true,
     }),
   );
-
-  await app.listen(5000);
-
+ const PORT = process.env.PORT || 5000;
+  await app.listen(PORT);
+ console.log(`🚀 Backend running on http://localhost:${PORT}`)
 }
 bootstrap();
