@@ -5,22 +5,19 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
 import { join } from 'path';
 import { MailService } from './mail.service';
 
-
 @Module({
-  
   imports: [
-    
     MailerModule.forRoot({
       transport: {
         host: 'smtp.gmail.com',
         port: 587,
-        secure: true,
+        secure: false,
         auth: {
-          user: process.env.MAIL_USER,
-          pass: process.env.MAIL_PASS,
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS,
         },
         tls: {
-          rejectUnauthorized: true,  // Disables SSL certificate validation
+          rejectUnauthorized: false,  // Disables SSL certificate validation
         },
       },
       defaults: {

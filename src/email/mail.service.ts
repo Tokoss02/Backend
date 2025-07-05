@@ -7,6 +7,7 @@ import { generateCarSlug } from 'src/utils/slug.util';
 
 const brandColor = '#CC9823';
 const siteUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+
 console.log('SMTP Credentials:', process.env.MAIL_USER, process.env.MAIL_PASS ? '✅ Set' : '❌ Missing');
 
 @Injectable()
@@ -17,13 +18,13 @@ export class MailService {
   private transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 587,
-    secure: true,
+    secure: false,
     auth: {
       user: process.env.MAIL_USER,
       pass: process.env.MAIL_PASS,
     },
     tls: {
-      rejectUnauthorized: true,
+      rejectUnauthorized: false,
     },
   });
 
