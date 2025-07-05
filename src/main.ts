@@ -6,6 +6,7 @@ import { join } from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import * as express from 'express';
 import * as fs from 'fs';
+import mongoose from 'mongoose';
 
 
 
@@ -45,5 +46,9 @@ async function bootstrap() {
  const PORT = process.env.PORT || 5000;
   await app.listen(PORT);
  console.log(`🚀 Backend running on port ${PORT}`)
+
+ mongoose.connection.on('connected', () => {
+  console.log('✅ MongoDB connected!');
+});
 }
 bootstrap();
