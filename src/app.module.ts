@@ -42,7 +42,7 @@ import { InquiryModule } from './inquiry/inquiry.module';
       isGlobal: true, // <== make sure this is set!
     }),
 
-    MongooseModule.forRoot(process.env.MONGO_URI || 'mongodb+srv://tokossmotors:52rbrR0iCSPRTDaw@cluster0.8ekmrcc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'),
+    MongooseModule.forRoot(process.env.MONGO_URI || 'mongodb://mongo:jGVxtOjKcbwuYmejfNkZBUQizxqAChgk@hopper.proxy.rlwy.net:36485'),
     EmailModule,
     UsersModule,
     AuthModule,
