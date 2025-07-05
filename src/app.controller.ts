@@ -22,4 +22,9 @@ getEnv() {
     jwt: process.env.JWT_SECRET ? 'set' : 'not set',
   };
 }
+
+@Get('/ping')
+getPing() {
+  return { message: '✅ Backend is alive and reachable' };
+}
 }
