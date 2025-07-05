@@ -3,9 +3,10 @@ import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  getHello(): any {
-    throw new Error('Method not implemented.');
+  getHello() {
+    return '✅ Backend is running on Railway!';
   }
+  
   constructor(private readonly appService: AppService) {}
 
   @Get()

@@ -5,6 +5,7 @@ import * as dotenv from 'dotenv';
 import { join } from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import * as express from 'express';
+import * as fs from 'fs';
 
 
 
@@ -24,7 +25,12 @@ async function bootstrap() {
     credentials: true,
   });
 
-  app.use('/uploads', express.static(join(process.cwd(), 'uploads')));
+  //app.use('/uploads', express.static(join(process.cwd(), 'uploads')));
+    const uploadPath = join(process.cwd(), 'uploads');
+  if (!fs.existsSync(uploadPath)) {
+    fs.mkdirSync(uploadPath, { recursive: true });
+  }
+
 
  
   // Global validation
@@ -38,6 +44,6 @@ async function bootstrap() {
   );
  const PORT = process.env.PORT || 5000;
   await app.listen(PORT);
- console.log(`🚀 Backend running on NEXT_PUBLIC_API_BASE_URL`)
+ console.log(`🚀 Backend running on port ${PORT}`)
 }
 bootstrap();
