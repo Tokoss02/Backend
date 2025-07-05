@@ -18,8 +18,8 @@ export class AppController {
   @Get('env')
 getEnv() {
   return {
-    db: process.env.DATABASE_URL,
-    jwt: process.env.JWT_SECRET,
+    db: process.env.DATABASE_URL ?? 'not set',
+    jwt: process.env.JWT_SECRET ? 'set' : 'not set',
   };
 }
 }
