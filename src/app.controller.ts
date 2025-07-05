@@ -14,4 +14,12 @@ export class AppController {
   getStatus() {
     return this.appService.getStatus();
   }
+
+  @Get('env')
+getEnv() {
+  return {
+    db: process.env.DATABASE_URL,
+    jwt: process.env.JWT_SECRET,
+  };
+}
 }
