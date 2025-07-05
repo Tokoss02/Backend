@@ -20,7 +20,7 @@ import { MailService } from './mail.service';
           pass: process.env.MAIL_PASS,
         },
         tls: {
-          rejectUnauthorized: false,  // Disables SSL certificate validation
+          rejectUnauthorized: true,  // Disables SSL certificate validation
         },
       },
       defaults: {

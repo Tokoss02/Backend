@@ -23,7 +23,7 @@ export class MailService {
       pass: process.env.MAIL_PASS,
     },
     tls: {
-      rejectUnauthorized: false,
+      rejectUnauthorized: true,
     },
   });
 
