@@ -20,7 +20,7 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'http://localhost:3000',
-      'https://frontendtokossmotors.vercel.app', 
+      'https://tokossmotors.com', 'https://www.tokossmotors.com', 
     ],
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     credentials: true,
