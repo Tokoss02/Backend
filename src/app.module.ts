@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import { AppController } from './app.controller'; 
-import { AppService } from './app.service';      
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 import { CarController } from './cars/car.controller';
 import { CarModule } from './cars/car.module';
 import { ConfigModule } from '@nestjs/config';
@@ -21,28 +21,37 @@ import { InquiryModule } from './inquiry/inquiry.module';
 
 @Module({
   imports: [
+    // Load environment variables globally
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
 
+    // JWT config (move secret to env for security)
     JwtModule.register({
-      secret: 'your-secret-key',  // You can store this in an environment variable for better security
+      secret: 'your-secret-key',
       signOptions: { expiresIn: '30d' },
     }),
 
-   /*ServeStaticModule.forRoot({
-      rootPath: join(process.cwd(), 'uploads'),
-      serveRoot: '/uploads',
-    }),*/
-    
+    /*ServeStaticModule.forRoot({
+       rootPath: join(process.cwd(), 'uploads'),
+       serveRoot: '/uploads',
+     }),*/
 
+    // Serve /uploads statically (e.g. for images)
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'uploads'), // 👈 make sure this matches your file structure
-      serveRoot: '/uploads',                      // URL prefix
+      rootPath: join(__dirname, '..', 'uploads'),
+      serveRoot: '/uploads',
     }),
 
-    ConfigModule.forRoot({
-      isGlobal: true, // <== make sure this is set!
-    }),
 
-    MongooseModule.forRoot(process.env.DATABASE_URL || 'mongodb://mongo:jGVxtOjKcbwuYmejfNkZBUQizxqAChgk@hopper.proxy.rlwy.net:36485'),
+    // Connect to MongoDB (can override with DATABASE_URL env var)
+    MongooseModule.forRoot(
+      process.env.DATABASE_URL || 'mongodb://mongo:jGVxtOjKcbwuYmejfNkZBUQizxqAChgk@hopper.proxy.rlwy.net:36485',
+
+      {
+        dbName: process.env.DATABASE_NAME || 'tokoss-db',
+      },
+    ),
     EmailModule,
     UsersModule,
     AuthModule,
@@ -53,4 +62,4 @@ import { InquiryModule } from './inquiry/inquiry.module';
   controllers: [AppController, CarController, AuthController, EmailController], // Register AppController here
   providers: [AppService, AuthService, TwoFactorService],      // Register AppService
 })
-export class AppModule {}
+export class AppModule { }
