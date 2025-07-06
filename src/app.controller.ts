@@ -16,7 +16,6 @@ export class AppController {
   }
 
 
-
 @Get('/ping')
 getPing() {
   return { message: '✅ Backend is alive and reachable' };
