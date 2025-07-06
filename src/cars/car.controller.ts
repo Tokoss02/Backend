@@ -67,7 +67,6 @@ export class CarController {
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 100
   ): Promise<Car[]> {
-    console.log("VSLL=================== ")
     return this.carService.findAll(page, limit);
   }
 
