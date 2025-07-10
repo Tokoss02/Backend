@@ -112,22 +112,24 @@ export class CarController {
   @UseInterceptors(FilesInterceptor('images', 30, multerConfig))
   async create(
   @UploadedFiles() files: Express.Multer.File[],
-  @Body() body: any,
+  @Body() body: any, // raw body, will contain `car` as string
 ): Promise<Car> {
   console.log('Received files:', files);
   //const images = files?.map((file) => `/uploads/cars/${file.filename.replace(/\\/g, '/')}`);
 
+  // ✅ Parse `car` field from form-data string
   const createCarDto: CreateCarDto = JSON.parse(body.car);
+   // ✅ Remove any empty or invalid _id field
   if ('_id' in createCarDto) delete createCarDto._id;
 
-  const imageUrls = await Promise.all(
+    // ✅ Upload each image to Cloudinary
+  const uploadedUrls = await Promise.all(
     files.map((file) => this.cloudinaryService.uploadImage(file))
   );
 
-    createCarDto.images = imageUrls;
-
   console.log('Parsed DTO:', createCarDto);
-    return this.carService.create(createCarDto, imageUrls); // Pass strings to service
+    
+    return this.carService.create(createCarDto, uploadedUrls); // Pass strings to service
   }
 
 
