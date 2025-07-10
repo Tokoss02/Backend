@@ -112,7 +112,7 @@ export class CarController {
   @UseInterceptors(FilesInterceptor('images', 30, multerConfig))
   async create(
   @UploadedFiles() files: Express.Multer.File[],
-  @Body() body: any,
+  @Body() body: any
 ): Promise<Car> {
   console.log('Received files:', files);
   //const images = files?.map((file) => `/uploads/cars/${file.filename.replace(/\\/g, '/')}`);
