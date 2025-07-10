@@ -117,19 +117,16 @@ export class CarController {
   console.log('Received files:', files);
   //const images = files?.map((file) => `/uploads/cars/${file.filename.replace(/\\/g, '/')}`);
 
-  // ✅ Parse `car` field from form-data string
   const createCarDto: CreateCarDto = JSON.parse(body.car);
-   // ✅ Remove any empty or invalid _id field
   if ('_id' in createCarDto) delete createCarDto._id;
 
-    // ✅ Upload each image to Cloudinary
   const uploadedUrls = await Promise.all(
     files.map((file) => this.cloudinaryService.uploadImage(file))
   );
 
   console.log('Parsed DTO:', createCarDto);
     
-    return this.carService.create(createCarDto, uploadedUrls); // Pass strings to service
+    return this.carService.create(createCarDto, uploadedUrls);
   }
 
 
