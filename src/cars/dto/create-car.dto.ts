@@ -82,6 +82,8 @@ export class CreateCarDto {
   @IsString({ each: true })
   existingImages?: string[];
 
+  
+
 
   // Specs
   @IsString({ message: 'Drive type must be a string' })

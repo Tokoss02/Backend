@@ -8,8 +8,7 @@ export class AppController {
     return '✅ Backend is running on Railway!';
   }
   // This endpoint can be used to check the status of the backend
-  constructor(
-    private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) {}
 
   @Get()
   getStatus() {
@@ -21,6 +20,4 @@ export class AppController {
 getPing() {
   return { message: '✅ Backend is alive and reachable' };
 }
-
-
 }
