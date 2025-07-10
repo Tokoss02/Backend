@@ -126,6 +126,7 @@ export class CarController {
 
   createCarDto.images=imageUrls
   console.log('Parsed DTO:', createCarDto);
+  console.log('🔁 Final DTO passed to service:', createCarDto);
     
     return this.carService.create(createCarDto, imageUrls);
   }
