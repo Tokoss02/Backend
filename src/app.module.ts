@@ -16,6 +16,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { EmailController } from './email/email.controller';  // Import EmailController
 import { EmailModule } from './email/email.module'; // Add this import
 import { InquiryModule } from './inquiry/inquiry.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 
 
 
@@ -52,6 +53,7 @@ import { InquiryModule } from './inquiry/inquiry.module';
         dbName: process.env.DATABASE_NAME || 'tokoss-db',
       },
     ),
+    CloudinaryModule,
     EmailModule,
     UsersModule,
     AuthModule,

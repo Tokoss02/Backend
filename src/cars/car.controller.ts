@@ -14,6 +14,7 @@ import path from 'path';
 import { ContactDto } from 'src/contact/ContactDto';
 import axios from 'axios';
 import { MailService } from 'src/email/mail.service';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 
 
@@ -28,7 +29,8 @@ import { MailService } from 'src/email/mail.service';
 export class CarController {
   constructor(
     private readonly carService: CarService,
-    private readonly mailService: MailService // ✅ inject mailService
+    private readonly mailService: MailService, // ✅ inject mailService
+    private readonly cloudinaryService: CloudinaryService,
   ) {}
   
 
@@ -113,17 +115,21 @@ export class CarController {
   @Body() body: any, // raw body, will contain `car` as string
 ): Promise<Car> {
   console.log('Received files:', files);
-  const images = files?.map((file) => `/uploads/cars/${file.filename.replace(/\\/g, '/')}`);
+  //const images = files?.map((file) => `/uploads/cars/${file.filename.replace(/\\/g, '/')}`);
 
   // ✅ Parse `car` field from form-data string
   const createCarDto: CreateCarDto = JSON.parse(body.car);
    // ✅ Remove any empty or invalid _id field
-  if ('_id' in createCarDto) {
-    delete createCarDto._id;
-  }
+  if ('_id' in createCarDto) delete createCarDto._id;
+
+    // ✅ Upload each image to Cloudinary
+  const uploadedUrls = await Promise.all(
+    files.map((file) => this.cloudinaryService.uploadImage(file))
+  );
+
   console.log('Parsed DTO:', createCarDto);
     
-    return this.carService.create(createCarDto, images); // Pass strings to service
+    return this.carService.create(createCarDto, uploadedUrls); // Pass strings to service
   }
 
 
