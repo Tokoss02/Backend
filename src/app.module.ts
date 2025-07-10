@@ -28,25 +28,25 @@ import { InquiryModule } from './inquiry/inquiry.module';
 
     // JWT config (move secret to env for security)
     JwtModule.register({
-      secret: 'your-secret-key',
+      secret: 'process.env.JWT_SECRET',
       signOptions: { expiresIn: '30d' },
     }),
 
-    /*ServeStaticModule.forRoot({
+    ServeStaticModule.forRoot({
        rootPath: join(process.cwd(), 'uploads'),
        serveRoot: '/uploads',
-     }),*/
+     }),
 
     // Serve /uploads statically (e.g. for images)
-    ServeStaticModule.forRoot({
+    /*ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'uploads'),
       serveRoot: '/uploads',
-    }),
+    }),*/
 
 
     // Connect to MongoDB (can override with DATABASE_URL env var)
     MongooseModule.forRoot(
-      process.env.DATABASE_URL || 'mongodb://mongo:jGVxtOjKcbwuYmejfNkZBUQizxqAChgk@hopper.proxy.rlwy.net:36485',
+      process.env.DATABASE_URL || 'mongodb+srv://tokossmotors:52rbrR0iCSPRTDaw@cluster0.8ekmrcc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
 
       {
         dbName: process.env.DATABASE_NAME || 'tokoss-db',
