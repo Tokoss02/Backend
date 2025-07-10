@@ -123,13 +123,13 @@ export class CarController {
   if ('_id' in createCarDto) delete createCarDto._id;
 
     // ✅ Upload each image to Cloudinary
-  const uploadedUrls = await Promise.all(
+  const imageUrls = await Promise.all(
     files.map((file) => this.cloudinaryService.uploadImage(file))
   );
 
   console.log('Parsed DTO:', createCarDto);
     
-    return this.carService.create(createCarDto, uploadedUrls); // Pass strings to service
+    return this.carService.create(createCarDto, imageUrls); // Pass strings to service
   }
 
 
