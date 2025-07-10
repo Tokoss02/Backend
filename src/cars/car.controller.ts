@@ -112,7 +112,7 @@ export class CarController {
   @UseInterceptors(FilesInterceptor('images', 30, multerConfig))
   async create(
   @UploadedFiles() files: Express.Multer.File[],
-  @Body() body: any
+  @Body() body: any,
 ): Promise<Car> {
   console.log('Received files:', files);
   //const images = files?.map((file) => `/uploads/cars/${file.filename.replace(/\\/g, '/')}`);
@@ -123,12 +123,14 @@ export class CarController {
   const imageUrls = await Promise.all(
     files.map((file) => this.cloudinaryService.uploadImage(file))
   );
-
+const cleanedImageUrls = imageUrls.map(url =>
+  url.trim().replace(/[);]+$/g, '') // Remove trailing ')' or ';'
+);
   createCarDto.images=imageUrls;
   console.log('Parsed DTO:', createCarDto);
   console.log('🔁 Final DTO passed to service:', createCarDto);
     
-    return this.carService.create(createCarDto, imageUrls);
+    return this.carService.create(createCarDto, cleanedImageUrls);
   }
 
 
