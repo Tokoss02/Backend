@@ -18,7 +18,7 @@ export class CloudinaryService {
           if (error) return reject(error);
           if (!result) return reject(new Error('No result returned from Cloudinary'));
           resolve(result.secure_url);
-        },
+        }
       );
 
       const readable = new Readable();
