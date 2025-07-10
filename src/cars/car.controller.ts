@@ -120,13 +120,14 @@ export class CarController {
   const createCarDto: CreateCarDto = JSON.parse(body.car);
   if ('_id' in createCarDto) delete createCarDto._id;
 
-  const uploadedUrls = await Promise.all(
+  const imageUrls = await Promise.all(
     files.map((file) => this.cloudinaryService.uploadImage(file))
   );
 
+  createCarDto.images=imageUrls
   console.log('Parsed DTO:', createCarDto);
     
-    return this.carService.create(createCarDto, uploadedUrls);
+    return this.carService.create(createCarDto, imageUrls);
   }
 
 
